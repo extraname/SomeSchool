@@ -43,7 +43,7 @@ class Course(db.Model):
             "id": self.id,
             "name": self.name,
             "modules": str(self.module),
-            "teacher": str(self.teacher.name)
+            "teacher": str(self.teacher)
         }
 
 
@@ -73,7 +73,7 @@ class Teacher(db.Model):
             "id": self.id,
             "name": self.name,
             "email": self.email,
-            "course": self.course,
+            "course": str(self.course)
         }
 
 
