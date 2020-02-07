@@ -34,16 +34,17 @@ class SingleCourse(Resource):
 class CourseModules(Resource):  # пересмотреть пост запрос
 
     def get(self, course_id):
-        return str(Course.query.get(course_id).module)
+        # return str(Course.query.get(course_id).module)
+        return str(ViewsValidator(Course).get_by_id(course_id)["modules"])
 
 
-class CourseTeacher(Resource):      # рассмотреть варинт патч
-
-    def get(self, course_id):
-        return str(ViewsValidator(Course).get_by_id(course_id)["teacher"])
-
-
-class CourseStudents(Resource):      # рассмотреть варинт патч
+class CourseTeacher(Resource):  # рассмотреть варинт патч
 
     def get(self, course_id):
-        return str(Course.query.get(course_id).students)
+        return ViewsValidator(Course).get_by_id(course_id)["teacher"]
+
+
+class CourseStudents(Resource):  # рассмотреть варинт патч
+
+    def get(self, course_id):
+        return ViewsValidator(Course).get_by_id(course_id)["students"]
