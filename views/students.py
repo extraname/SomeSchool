@@ -16,29 +16,17 @@ class Students(Resource):
         return ViewsValidator(Student).post(data)
 
 
-class StudentsGrades(Resource):
-
-    def get(self):
-        students_count = Student.query.count() + 1
-        for i in range(1, students_count):
-            grade = Student.query.get(i).serialize()["grade"]
-            name = Student.query.get(i).serialize()["name"]
-            id_ = Student.query.get(i).serialize()["id"]
-            return f"{name} with id {id_}: {grade}"
-
-
 class SingleStudent(Resource):
 
     def get(self, student_id):
         return ViewsValidator(Student).get_by_id(student_id)
 
     def patch(self, student_id):
-
         data = request.get_json()
         student = Student.query.filter_by(id=student_id)
         student.update(data)
         db.session.commit()
-        return Student.query.get(student_id), 204
+        return {}, 204
 
     def delete(self, student_id):
         db.session.query(Student).filter_by(id=student_id).delete()
@@ -53,8 +41,8 @@ class StudentTeacher(Resource):
 
     def post(self, student_id):
         data = request.get_json()["teacher"]
-        teacher = Teacher.query.get(data)
-        student = Student.query.get(student_id)
+        teacher = Teacher.query.filter_by(id=data)
+        student = Student.query.filter_by(student_id)
         student.teacher.append(teacher)
         db.session.commit()
         return {}, 204
@@ -68,7 +56,7 @@ class StudentModule(Resource):
     def post(self, student_id):
         data = request.get_json()["module"]
         module = Module.query.get(data)
-        student = Student.query.get(student_id)
+        student = Student.query.filter_by(student_id)
         student.module.append(module)
         db.session.commit()
         return {}, 204
@@ -82,7 +70,10 @@ class StudentCourse(Resource):
     def post(self, student_id):
         data = request.get_json()["course"]
         course = Course.query.get(data)
-        student = Student.query.get(student_id)
+        student = Student.query.filter_by(student_id)
         student.course.append(course)
         db.session.commit()
         return {}, 204
+
+
+
