@@ -5,7 +5,8 @@ from views.courses import SingleCourse, Courses, CourseModules, \
 from views.modules import Modules, SingleModule, ModuleCourse
 from views.teachers import Teachers, SingleTeacher, TeacherCourse, \
     TeacherStudents
-
+from views.students import Students, SingleStudent, \
+    StudentCourse, StudentModule, StudentTeacher
 
 api.add_resource(MySchool, '/school')
 
@@ -23,6 +24,13 @@ api.add_resource(Teachers, "/teachers")
 api.add_resource(SingleTeacher, "/teachers/<int:teacher_id>")
 api.add_resource(TeacherCourse, "/teachers/<int:teacher_id>/course")
 api.add_resource(TeacherStudents, "/teachers/<int:teacher_id>/students")
+
+api.add_resource(Students, "/students")
+api.add_resource(SingleStudent, "/students/<int:student_id>")
+api.add_resource(StudentCourse, "/students/<int:student_id>/course")
+api.add_resource(StudentTeacher, "/students/<int:student_id>/teacher")
+api.add_resource(StudentModule, "/students/<int:student_id>/modules")
+
 
 if __name__ == "__main__":
     app.run()
