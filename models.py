@@ -1,3 +1,4 @@
+from sqlalchemy.dialects.postgresql import JSON
 from settings import db
 
 
@@ -42,7 +43,7 @@ class Course(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "modules": str(self.module),
+            "modules": list(self.module),
             "teacher": str(self.teacher)
         }
 
@@ -121,7 +122,7 @@ class Student(db.Model):
     teacher = db.relationship("Teacher", secondary=teachers_students_table,
                               backref="students")
     # teacher = db.Column(db.Integer, db.ForeignKey("teacher.id"))
-    grade = db.Column(db.String(200))
+    grade = db.Column(JSON)
     module = db.relationship("Module", secondary=modules_students_table,
                              backref="students")
 
@@ -135,7 +136,8 @@ class Student(db.Model):
             "email": self.email,
             "course": str(self.course),
             "teacher": str(self.teacher),
-            "modules": str(self.module)
+            "modules": str(self.module),
+            "grade": str(self.grade)
         }
 
 
