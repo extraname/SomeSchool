@@ -2,8 +2,8 @@ from flask import request
 from flask_restful import Resource
 
 from models import Course, serialize_multiple
-from utils.modelsvalidator import ModelsValidator
 from settings import db
+from utils.modelsvalidator import ModelsValidator
 
 
 class Courses(Resource):

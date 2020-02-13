@@ -2,8 +2,8 @@ from flask import request
 from flask_restful import Resource
 
 from models import Teacher, serialize_multiple
-from utils.modelsvalidator import ModelsValidator
 from settings import db
+from utils.modelsvalidator import ModelsValidator
 
 
 class Teachers(Resource):
@@ -13,7 +13,6 @@ class Teachers(Resource):
 
     def post(self):
         data = request.get_json()
-        print(data)
         return ModelsValidator(Teacher).post(data)
 
 
@@ -36,7 +35,6 @@ class TeacherCourse(Resource):
 
     def get(self, teacher_id):
         return ModelsValidator(Teacher).get_by_id(teacher_id)["course"]
-
 
 
 class TeacherStudents(Resource):

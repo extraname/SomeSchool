@@ -1,9 +1,8 @@
 from flask import request
 from flask_restful import Resource
-from psycopg2.extras import Json
 from models import Student, Teacher, Module, Course, serialize_multiple
-from utils.modelsvalidator import ModelsValidator
 from settings import db
+from utils.modelsvalidator import ModelsValidator
 
 
 class Students(Resource):
@@ -74,6 +73,3 @@ class StudentCourse(Resource):
         student.course.append(course)
         db.session.commit()
         return {}, 204
-
-
-
