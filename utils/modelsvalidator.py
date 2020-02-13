@@ -4,7 +4,7 @@ from models import serialize_multiple
 from settings import db
 
 
-class ViewsValidator:
+class ModelsValidator:
 
     def __init__(self, model):
         self.model = model
@@ -42,3 +42,5 @@ class ViewsValidator:
 
         except IntegrityError:
             return "Either data already exists or wrong input", 409
+
+
