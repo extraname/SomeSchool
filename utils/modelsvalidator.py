@@ -42,5 +42,3 @@ class ModelsValidator:
 
         except IntegrityError:
             return "Either data already exists or wrong input", 409
-
-
