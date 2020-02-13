@@ -43,7 +43,7 @@ class Course(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "modules": list(self.module),
+            "modules": str(self.module),
             "teacher": str(self.teacher)
         }
 
