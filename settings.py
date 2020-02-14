@@ -1,5 +1,4 @@
 import logging
-import psycopg2
 import settings1
 from flask import Flask
 from flask_restful import Api
