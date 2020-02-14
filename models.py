@@ -67,7 +67,7 @@ class Teacher(db.Model):
     # students = db.relationship("Student", backref="teacher")
 
     def __repr__(self):
-        return f"{self.name} with id: {self.id}"
+        return f"{self.name} with unique id: {self.id}"
 
     def serialize(self):
         return {
@@ -93,7 +93,7 @@ class Module(db.Model):
     course_ = db.Column(db.Integer, db.ForeignKey("courses.id"))
 
     def __repr__(self):
-        return "Module : %r" % self.name
+        return f"{self.name}"
 
     def serialize(self):
         return {
@@ -127,7 +127,7 @@ class Student(db.Model):
                              backref="students")
 
     def __repr__(self):
-        return f"{self.name} with id: {self.id}"
+        return f"{self.name} with unique id: {self.id}"
 
     def serialize(self):
         return {
