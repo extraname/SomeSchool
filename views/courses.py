@@ -8,24 +8,29 @@ from utils.modelsvalidator import ModelsValidator
 
 class Courses(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
         return serialize_multiple(Course.query.all())
 
-    def post(self):
+    @staticmethod
+    def post():
         data = request.get_json()
         return ModelsValidator(Course).post(data)
 
 
 class SingleCourse(Resource):
 
-    def get(self, course_id):
+    @staticmethod
+    def get(course_id):
         return ModelsValidator(Course).get_by_id(course_id)
 
-    def patch(self, course_id):
+    @staticmethod
+    def patch(course_id):
         data = request.get_json()
         return ModelsValidator(Course).patch_by_id(course_id, data)
 
-    def delete(self, course_id):
+    @staticmethod
+    def delete(course_id):
         db.session.query(Course).filter_by(id=course_id).delete()
         db.session.commit()
         return {}, 200
@@ -33,18 +38,21 @@ class SingleCourse(Resource):
 
 class CourseModules(Resource):  # пересмотреть пост запрос
 
-    def get(self, course_id):
+    @staticmethod
+    def get(course_id):
         # return str(Course.query.get(course_id).module)
         return str(ModelsValidator(Course).get_by_id(course_id)["modules"])
 
 
 class CourseTeacher(Resource):  # рассмотреть варинт патч
 
-    def get(self, course_id):
+    @staticmethod
+    def get(course_id):
         return ModelsValidator(Course).get_by_id(course_id)["teacher"]
 
 
 class CourseStudents(Resource):  # рассмотреть варинт патч
 
-    def get(self, course_id):
+    @staticmethod
+    def get(course_id):
         return ModelsValidator(Course).get_by_id(course_id)["students"]

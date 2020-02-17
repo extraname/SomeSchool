@@ -8,24 +8,29 @@ from utils.modelsvalidator import ModelsValidator
 
 class Modules(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
         return serialize_multiple(Module.query.all())
 
-    def post(self):
+    @staticmethod
+    def post():
         data = request.get_json()
         return ModelsValidator(Module).post(data)
 
 
 class SingleModule(Resource):
 
-    def get(self, module_id):
+    @staticmethod
+    def get(module_id):
         return ModelsValidator(Module).get_by_id(module_id)
 
-    def patch(self, module_id):
+    @staticmethod
+    def patch(module_id):
         data = request.get_json()
         return ModelsValidator(Module).patch_by_id(module_id, data)
 
-    def delete(self, module_id):
+    @staticmethod
+    def delete(module_id):
         db.session.query(Module).filter_by(id=module_id).delete()
         db.session.commit()
         return {}, 200
@@ -33,5 +38,6 @@ class SingleModule(Resource):
 
 class ModuleCourse(Resource):
 
-    def get(self, module_id):
+    @staticmethod
+    def get(module_id):
         return str(Module.query.get(module_id).course)

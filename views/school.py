@@ -5,5 +5,7 @@ from utils.modelsvalidator import ModelsValidator
 
 
 class MySchool(Resource):
-    def get(self):
+
+    @staticmethod
+    def get():
         return ModelsValidator(School).get()

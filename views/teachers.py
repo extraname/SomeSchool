@@ -8,24 +8,29 @@ from utils.modelsvalidator import ModelsValidator
 
 class Teachers(Resource):
 
-    def get(self):
+    @staticmethod
+    def get():
         return serialize_multiple(Teacher.query.all())
 
-    def post(self):
+    @staticmethod
+    def post():
         data = request.get_json()
         return ModelsValidator(Teacher).post(data)
 
 
 class SingleTeacher(Resource):
 
-    def get(self, teacher_id):
+    @staticmethod
+    def get(teacher_id):
         return ModelsValidator(Teacher).get_by_id(teacher_id)
 
-    def patch(self, teacher_id):
+    @staticmethod
+    def patch(teacher_id):
         data = request.get_json()
         return ModelsValidator(Teacher).patch_by_id(teacher_id, data)
 
-    def delete(self, teacher_id):
+    @staticmethod
+    def delete(teacher_id):
         db.session.query(Teacher).filter_by(id=teacher_id).delete()
         db.session.commit()
         return {}, 200
@@ -33,11 +38,13 @@ class SingleTeacher(Resource):
 
 class TeacherCourse(Resource):
 
-    def get(self, teacher_id):
+    @staticmethod
+    def get(teacher_id):
         return ModelsValidator(Teacher).get_by_id(teacher_id)["course"]
 
 
 class TeacherStudents(Resource):
 
-    def get(self, teacher_id):
+    @staticmethod
+    def get(teacher_id):
         return str(db.session.query(Teacher).get(teacher_id).students)
